@@ -262,6 +262,176 @@ nav ul li a {
 }
 
 
+/* New Portfolio Section */
+.portfolio-subtitle {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.portfolio-list {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.portfolio-list-item {
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    background: #fff;
+    color: #121212;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 2px solid #fff;
+}
+
+.portfolio-list-item:hover {
+    background: #121212;
+    color: #fff;
+    transform: scale(1.02);
+}
+
+.item-number {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.3rem 0.6rem;
+    margin-right: 2rem;
+    font-weight: bold;
+}
+
+.portfolio-list-item:hover .item-number {
+    border-color: #fff;
+}
+
+.item-title {
+    flex-grow: 1;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.item-arrow {
+    font-size: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.portfolio-list-item:hover .item-arrow {
+    transform: translateX(10px);
+}
+
+
+/* Portfolio Category Page */
+#portfolio-category h2 {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.portfolio-item {
+    background: #1e1e1e;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.portfolio-item img,
+.portfolio-item video {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.pdf-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 220px;
+    background: #2a2a2a;
+    color: #fff;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.pdf-preview i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.pdf-preview span {
+    font-weight: bold;
+}
+
+
+/* Lightbox Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: auto;
+    max-width: 85vw;
+    max-height: 85vh;
+}
+
+#lightbox-image,
+#lightbox-video {
+    width: 100%;
+    height: auto;
+    max-height: 85vh;
+    display: block;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #bbb;
+    text-decoration: none;
+}
+
+
 /* Contact Section */
 #contact {
     text-align: center;
