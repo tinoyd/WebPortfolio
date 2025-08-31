@@ -514,7 +514,7 @@ nav ul li a {
     flex-grow: 1; /* Allow fields to grow and fill the container */
     padding: 1rem;
     background: transparent;
-    border: 1px solid #555;
+    border: 1px solid #e0e0e0; /* Changed to white for better contrast */
     border-radius: 5px;
     color: #fff;
     font-size: 1rem;
@@ -526,6 +526,11 @@ nav ul li a {
 #contact-form textarea:focus {
     border-color: #007bff;
     outline: none;
+}
+
+#contact-form ::placeholder {
+    color: #e0e0e0;
+    opacity: 1; /* For Firefox */
 }
 
 #contact-form button {
