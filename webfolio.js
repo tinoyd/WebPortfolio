@@ -78,32 +78,40 @@ if (window.THREE) {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    const particleCount = 5000;
-    const vertices = [];
-    for (let i = 0; i < particleCount; i++) {
-        const x = (Math.random() - 0.5) * 2000;
-        const y = (Math.random() - 0.5) * 2000;
-        const z = (Math.random() - 0.5) * 2000;
-        vertices.push(x, y, z);
+    const geometry = new THREE.BufferGeometry();
+    const count = 150;
+    const spacing = 6;
+    const vertices = new Float32Array(count * count * 3);
+
+    for (let i = 0; i < count; i++) {
+        for (let j = 0; j < count; j++) {
+            const x = (i - count / 2) * spacing;
+            const y = (j - count / 2) * spacing;
+            const z = 0;
+            const index = (i * count + j) * 3;
+            vertices[index] = x;
+            vertices[index + 1] = y;
+            vertices[index + 2] = z;
+        }
     }
 
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
 
     const material = new THREE.PointsMaterial({
-        color: 0x888888,
-        size: 2,
-        sizeAttenuation: true,
-        transparent: true,
-        opacity: 0.5
+        color: 0x555555,
+        size: 1,
+        sizeAttenuation: true
     });
 
-    const particles = new THREE.Points(geometry, material);
-    scene.add(particles);
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
 
-    camera.position.z = 5;
+    camera.position.z = 200;
 
     const mouse = new THREE.Vector2();
+    const raycaster = new THREE.Raycaster();
+    const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+    const intersection = new THREE.Vector3();
 
     window.addEventListener('mousemove', (event) => {
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -123,14 +131,28 @@ if (window.THREE) {
         requestAnimationFrame(animate);
 
         const elapsedTime = clock.getElapsedTime();
+        const positions = points.geometry.attributes.position.array;
 
-        particles.rotation.y = elapsedTime * 0.05;
+        raycaster.setFromCamera(mouse, camera);
+        raycaster.ray.intersectPlane(plane, intersection);
 
-        // Interactive hover effect
-        particles.rotation.x = mouse.y * 0.2;
-        particles.rotation.y = mouse.x * 0.2;
+        for (let i = 0; i < positions.length; i += 3) {
+            const x = positions[i];
+            const y = positions[i + 1];
 
+            const dx = x - intersection.x;
+            const dy = y - intersection.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            
+            const maxDist = 80;
+            const power = Math.max(0, 1 - dist / maxDist);
+            
+            const offset = power * 30 * Math.sin(dist * 0.2 - elapsedTime);
+            positions[i + 2] = offset;
+        }
+        points.geometry.attributes.position.needsUpdate = true;
 
+        points.rotation.x = 0.2; // slight tilt
         renderer.render(scene, camera);
     };
 

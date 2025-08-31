@@ -77,6 +77,13 @@ nav .logo a {
     color: #fff;
     font-size: 1.8rem;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+nav .logo img {
+    max-height: 80px;
+    width: auto;
 }
 
 nav ul {
@@ -120,6 +127,14 @@ nav ul li a {
     align-items: flex-start;
     text-align: left;
     position: relative;
+}
+
+.profile-photo {
+    width: 16rem;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 2rem;
 }
 
 .hero-intro {
@@ -194,6 +209,10 @@ nav ul li a {
     padding: 0.5rem 1rem;
     border-radius: 5px;
     font-family: 'Fira Code', monospace; /* Example for a more techy font */
+}
+
+.resume-btn {
+    margin-top: 2rem;
 }
 
 
