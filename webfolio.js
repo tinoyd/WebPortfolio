@@ -127,6 +127,35 @@ if (window.THREE) {
 
     const clock = new THREE.Clock();
 
+    // Hero Object Scene
+    let heroObject, heroObjectRenderer, heroObjectScene, heroObjectCamera;
+    const heroObjectCanvas = document.querySelector('#hero-object-canvas');
+    if (heroObjectCanvas) {
+        heroObjectScene = new THREE.Scene();
+        heroObjectCamera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+        heroObjectRenderer = new THREE.WebGLRenderer({
+            canvas: heroObjectCanvas,
+            alpha: true
+        });
+        heroObjectRenderer.setSize(1300, 1300); // A bit larger
+        heroObjectRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        const geometry = new THREE.IcosahedronGeometry(36, 10); // A bit larger
+        const material = new THREE.PointsMaterial({
+            color: 0xffffff,
+            size: 0.25,
+            sizeAttenuation: true
+        });
+        heroObject = new THREE.Points(geometry, material);
+        heroObject.initialPosition = heroObject.geometry.attributes.position.clone();
+        
+        const velocities = new Float32Array(heroObject.initialPosition.count * 3);
+        heroObject.geometry.setAttribute('velocity', new THREE.BufferAttribute(velocities, 3));
+
+        heroObjectScene.add(heroObject);
+        heroObjectCamera.position.z = 120; // Adjust camera for new scale
+    }
+
     const animate = () => {
         requestAnimationFrame(animate);
 
@@ -154,6 +183,57 @@ if (window.THREE) {
 
         points.rotation.x = 0.2; // slight tilt
         renderer.render(scene, camera);
+
+        // Animate and render hero object if it exists
+        if (heroObject && heroObjectRenderer) {
+            heroObject.rotation.y += 0.001;
+            
+            raycaster.setFromCamera(mouse, heroObjectCamera);
+            const intersects = raycaster.intersectObject(heroObject);
+
+            const positions = heroObject.geometry.attributes.position.array;
+            const velocities = heroObject.geometry.attributes.velocity.array;
+            const initialPos = heroObject.initialPosition.array;
+
+            for (let i = 0; i < positions.length; i += 3) {
+                const ix = i, iy = i + 1, iz = i + 2;
+
+                const dxInitial = initialPos[ix] - positions[ix];
+                const dyInitial = initialPos[iy] - positions[iy];
+                const dzInitial = initialPos[iz] - positions[iz];
+
+                velocities[ix] += dxInitial * 0.005;
+                velocities[iy] += dyInitial * 0.005;
+                velocities[iz] += dzInitial * 0.005;
+                
+                if (intersects.length > 0) {
+                    const intersectPoint = intersects[0].point;
+                    const dx = positions[ix] - intersectPoint.x;
+                    const dy = positions[iy] - intersectPoint.y;
+                    const dz = positions[iz] - intersectPoint.z;
+                    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                    
+                    const repelRadius = 30; // Adjust interaction for new scale
+                    if (dist < repelRadius) {
+                        const repelForce = (repelRadius - dist) * 0.02;
+                        velocities[ix] += (dx / dist) * repelForce;
+                        velocities[iy] += (dy / dist) * repelForce;
+                        velocities[iz] += (dz / dist) * repelForce;
+                    }
+                }
+
+                velocities[ix] *= 0.96;
+                velocities[iy] *= 0.96;
+                velocities[iz] *= 0.96;
+                
+                positions[ix] += velocities[ix];
+                positions[iy] += velocities[iy];
+                positions[iz] += velocities[iz];
+            }
+            heroObject.geometry.attributes.position.needsUpdate = true;
+
+            heroObjectRenderer.render(heroObjectScene, heroObjectCamera);
+        }
     };
 
     animate();

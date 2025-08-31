@@ -129,8 +129,32 @@ nav ul li a {
     position: relative;
 }
 
+#hero-object-canvas {
+    position: absolute;
+    top: 35%; /* Moved up */
+    right: -35%; /* Moved more to the left */
+    transform: translateY(-50%);
+    width: 1300px !important; /* A bit larger */
+    height: 1300px !important; /* A bit larger */
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-content > * {
+    pointer-events: auto;
+}
+
+.hero-text-content {
+    /* This class is no longer used */
+}
+
 .profile-photo {
-    width: 16rem;
+    width: 18rem; /* A bit larger */
     height: auto;
     border-radius: 8px;
     object-fit: cover;
