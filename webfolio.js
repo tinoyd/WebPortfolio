@@ -64,6 +64,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     setTimeout(type, 500);
+
+    const profilePhoto = document.querySelector('.profile-photo');
+    if (profilePhoto) {
+        window.addEventListener('mousemove', e => {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            const rotateX = ((mouseY - centerY) / centerY) * -10; // Max tilt 10deg
+            const rotateY = ((mouseX - centerX) / centerX) * 10; // Max tilt 10deg
+            
+            profilePhoto.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+        });
+    }
 });
 
 // Three.js Particle Background

@@ -106,9 +106,18 @@
         </section>
 
         <section id="contact" class="hidden">
-            <h2>Get in Touch</h2>
+            <h2>Get In Touch</h2>
             <p>I'm currently open to new opportunities. If you have a project in mind or just want to say hi, feel free to reach out. I'll get back to you as soon as possible!</p>
-            <a href="mailto:justingabriel.durias@gmail.com" class="btn btn-primary">Say Hello</a>
+            <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="form-row">
+                    <input type="text" name="name" placeholder="Full Name" required>
+                    <input type="tel" name="telephone" placeholder="Telephone">
+                </div>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="text" name="subject" placeholder="Subject" required>
+                <textarea name="message" placeholder="Message" rows="6" required></textarea>
+                <button type="submit" class="btn btn-primary">Send Message <i class="fas fa-paper-plane"></i></button>
+            </form>
         </section>
     </main>
 
