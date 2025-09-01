@@ -8,16 +8,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const portfolioItems = [
         // Videos
-        { category: 'Videos', src: 'assets/Videos/Video Reel.mp4', title: 'Hospitality Video Reel' },
-        { category: 'Videos', src: 'assets/Videos/WtA Sizzle reel.mp4', title: 'Welcome to Arizona Sizzle Reel' },
-        { category: 'Videos', src: 'assets/Videos/My Millennium.mp4', title: 'My Millennium Ad' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/Video Reel.mp4', title: 'Hospitality Video Reel' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/WtA Sizzle reel.mp4', title: 'Welcome to Arizona Sizzle Reel' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/My Millennium.mp4', title: 'My Millennium Ad' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/MOB BRB screen.mp4', title: 'Mob Streaming Asset' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/MOB Ending screen.mp4', title: 'Mob Streaming Asset' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/MOB Starting screen.mp4', title: 'Mob Streaming Asset' },
 
         // Brand Design
         { category: 'Brand Design', src: 'assets/Brand Design/Firmland Brand Design.pdf', title: 'Firmland Brand Design' },
         { category: 'Brand Design', src: 'assets/Brand Design/Task Pilot Mobile App.pdf', title: 'Task Pilot Brand Design' },
+        { category: 'Brand Design', src: 'assets/Brand Design/AJCO Brokerage.pdf', title: 'AJCO Brokerage Brand Design' },
+        { category: 'Brand Design', src: 'assets/Brand Design/Metro Essentials Brand.pdf', title: 'Metro Essentials Brand Design' },
         
         // Graphic Design - Print Collaterals
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Collaterals/Slice 5.png', title: 'Firmland Collaterals' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Mock up.png', title: 'Poster Mock Up' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/WtA YT banner.png', title: 'Welcome to Arizona YT Banner' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Custom Banner 2.png', title: 'Welcome to Arizona Social Media Banner' },
         { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/NYE Banner.jpg', title: 'Heritage Hotel NYE Banner' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Halloween Poster.jpg', title: 'Halloween Event Poster' },
         { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Resized We care.jpg', title: 'We Care Banner' },
         { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Resized We clean.jpg', title: 'We Clean Banner' },
         { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Social-04.jpg', title: 'Room Web Banner' },
@@ -43,7 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Logo Design
         { category: 'Logo Design', src: 'assets/Logos/FIG Logo 1.png', title: 'FIG Logo' },
+        { category: 'Logo Design', src: 'assets/Logos/ME Logo.png', title: 'Metro Essentials Logo' },
+        { category: 'Logo Design', src: 'assets/Logos/Artboard 4.png', title: 'Welcome to Arizona Logo' },
         { category: 'Logo Design', src: 'assets/Logos/Paella.png', title: 'Paella Logo' },
+        { category: 'Logo Design', src: 'assets/Logos/Artboard 2TP.png', title: 'Task Pilot Logo' },
         
         // Mobile UI/UX
         { category: 'Mobile UI/UX', src: 'assets/Mobile Application/Task Pilot Mobile App.pdf', title: 'Task Pilot Mobile App' },
@@ -74,6 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
         items.forEach(item => {
             const itemElement = document.createElement('div');
             itemElement.classList.add('portfolio-item');
+            if (item.category === 'Logo Design') {
+                itemElement.classList.add('logo-design-item');
+            }
             itemElement.dataset.src = item.src;
             itemElement.dataset.title = item.title;
             
@@ -90,8 +106,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.open(item.src, '_blank');
                 });
             } else if (isVideo) {
-                 itemElement.innerHTML = `<video src="${item.src}#t=0.5" muted preload="metadata"></video>`;
+                 itemElement.innerHTML = `<video src="${item.src}#t=0.5" muted preload="metadata" loop></video>`;
                  itemElement.addEventListener('click', openLightbox);
+                 itemElement.addEventListener('mouseenter', () => {
+                    itemElement.querySelector('video').play();
+                 });
+                 itemElement.addEventListener('mouseleave', () => {
+                    const video = itemElement.querySelector('video');
+                    video.pause();
+                    video.currentTime = 0;
+                 });
             } else {
                 itemElement.innerHTML = `<img src="${item.src}" alt="${item.title}">`;
                 itemElement.addEventListener('click', openLightbox);
@@ -114,6 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
             modalImage.style.display = 'block';
             modalImage.src = src;
         }
+        
+        if (item.classList.contains('logo-design-item')) {
+            modalImage.classList.add('logo-preview');
+        } else {
+            modalImage.classList.remove('logo-preview');
+        }
+
         modal.classList.add('active');
     }
 
@@ -121,6 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.classList.remove('active');
         modalVideo.pause();
         modalVideo.src = "";
+        modalImage.classList.remove('logo-preview');
     }
 
     closeModal.addEventListener('click', closeTheModal);

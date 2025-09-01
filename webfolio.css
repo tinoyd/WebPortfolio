@@ -130,12 +130,12 @@ nav ul li a {
 }
 
 #hero-object-canvas {
-    position: absolute;
-    top: 35%; /* Moved up */
-    right: -35%; /* Moved more to the left */
+    position: fixed;
+    top: 53%; /* Adjusted downward position */
+    right: -13%; /* Adjusted position */
     transform: translateY(-50%);
-    width: 1300px !important; /* A bit larger */
-    height: 1300px !important; /* A bit larger */
+    width: 1600px !important; /* Made slightly larger */
+    height: 1600px !important; /* Made slightly larger */
     z-index: 0;
 }
 
@@ -164,8 +164,9 @@ nav ul li a {
 
 .hero-intro {
     color: #007bff;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-bottom: 1rem;
+    font-weight: bold;
 }
 
 #hero h2 {
@@ -309,7 +310,7 @@ nav ul li a {
 /* New Portfolio Section */
 .portfolio-subtitle {
     text-align: center;
-    color: #aaa;
+    color: #ffffff;
     margin-bottom: 3rem;
     font-size: 1.1rem;
     max-width: 600px;
@@ -392,6 +393,10 @@ nav ul li a {
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
+.logo-design-item {
+    background: #ffffff;
+}
+
 .portfolio-item img,
 .portfolio-item video {
     width: 100%;
@@ -455,6 +460,10 @@ nav ul li a {
     height: auto;
     max-height: 85vh;
     display: block;
+}
+
+#lightbox-image.logo-preview {
+    background: white;
 }
 
 .close-button {

@@ -202,7 +202,9 @@ if (window.THREE) {
 
         // Animate and render hero object if it exists
         if (heroObject && heroObjectRenderer) {
-            heroObject.rotation.y += 0.001;
+            // heroObject.rotation.y += 0.001;
+            heroObject.rotation.y += (mouse.x * 0.5 - heroObject.rotation.y) * 0.05;
+            heroObject.rotation.x += (-mouse.y * 0.5 - heroObject.rotation.x) * 0.05;
             
             raycaster.setFromCamera(mouse, heroObjectCamera);
             const intersects = raycaster.intersectObject(heroObject);
