@@ -8,63 +8,81 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const portfolioItems = [
         // Videos
-        { category: 'Videos / Motion Graphics', src: 'assets/Videos/Video Reel.mp4', title: 'Hospitality Video Reel' },
-        { category: 'Videos / Motion Graphics', src: 'assets/Videos/WtA Sizzle reel.mp4', title: 'Welcome to Arizona Sizzle Reel' },
-        { category: 'Videos / Motion Graphics', src: 'assets/Videos/My Millennium.mp4', title: 'My Millennium Ad' },
-        { category: 'Videos / Motion Graphics', src: 'assets/Videos/MOB BRB screen.mp4', title: 'Mob Streaming Asset' },
-        { category: 'Videos / Motion Graphics', src: 'assets/Videos/MOB Ending screen.mp4', title: 'Mob Streaming Asset' },
-        { category: 'Videos / Motion Graphics', src: 'assets/Videos/MOB Starting screen.mp4', title: 'Mob Streaming Asset' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/video1.mp4', title: 'My Millennium Ad' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/video2.mp4', title: 'Welcome to Arizona Sizzle Reel' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/video3.mp4', title: 'Hospitality Video Reel' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/video4.mp4', title: 'Mob Streaming Asset' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/video5.mp4', title: 'Mob Streaming Asset' },
+        { category: 'Videos / Motion Graphics', src: 'assets/Videos/video6.mp4', title: 'Mob Streaming Asset' },
 
         // Brand Design
-        { category: 'Brand Design', src: 'assets/Brand Design/Firmland Brand Design.pdf', title: 'Firmland Brand Design' },
-        { category: 'Brand Design', src: 'assets/Brand Design/Task Pilot Mobile App.pdf', title: 'Task Pilot Brand Design' },
-        { category: 'Brand Design', src: 'assets/Brand Design/AJCO Brokerage.pdf', title: 'AJCO Brokerage Brand Design' },
-        { category: 'Brand Design', src: 'assets/Brand Design/Metro Essentials Brand.pdf', title: 'Metro Essentials Brand Design' },
+        { category: 'Brand Design', src: 'assets/Brand/ajco-brokerage.pdf', title: 'AJCO Brokerage Brand Design' },
+        { category: 'Brand Design', src: 'assets/Brand/firmland-brand.pdf', title: 'Firmland Brand Design' },
+        { category: 'Brand Design', src: 'assets/Brand/me-brand.pdf', title: 'Metro Essentials Brand Design' },
+        { category: 'Brand Design', src: 'assets/Brand/tp-brand.pdf', title: 'Task Pilot Brand Design' },
+
+        // Graphic Design - Social Media
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social1.png', title: 'Social Media Post' },
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social2.png', title: 'Social Media Post' },
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social3.png', title: 'Social Media Post' },
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social4.png', title: 'Social Media Post' },
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social5.png', title: 'Social Media Post' },
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social6.png', title: 'Social Media Post' },
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social7.png', title: 'Social Media Post' },
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social8.png', title: 'Social Media Post' },
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social9.png', title: 'Social Media Post' },
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social10.png', title: 'Social Media Post' },
         
         // Graphic Design - Print Collaterals
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Collaterals/Slice 5.png', title: 'Firmland Collaterals' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Mock up.png', title: 'Poster Mock Up' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/WtA YT banner.png', title: 'Welcome to Arizona YT Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Custom Banner 2.png', title: 'Welcome to Arizona Social Media Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/NYE Banner.jpg', title: 'Heritage Hotel NYE Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Halloween Poster.jpg', title: 'Halloween Event Poster' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Resized We care.jpg', title: 'We Care Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Resized We clean.jpg', title: 'We Clean Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Social-04.jpg', title: 'Room Web Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Social-03.jpg', title: 'Room Web Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Study 1.jpg', title: 'Riviera Resto Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Study 3.jpg', title: 'Riviera Resto Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Study 4.jpg', title: 'Riviera Resto Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Banner/Study 5.jpg', title: 'Riviera Resto Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Brochure/Xmas Brochure (back).jpg', title: 'Event Christmas Brochure' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Brochure/Xmas Brochure (front).jpg', title: 'Event Christmas Brochure' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Infrographic/Lifestyle Map.jpg', title: 'Map Infographic' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Infrographic/Safety Protocols tagalog.jpg', title: 'Safety Protocols Infographic' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Billboard/Banner Photo.png', title: 'Hotel Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Billboard/Hawker 2.jpg', title: 'Singapore Hawker Billboard Banner' },
-        { category: 'Graphic Design-Print Collaterals', src: 'assets/Billboard/Hawker.jpg', title: 'Singapore Hawker Billboard Banner' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print1.png', title: 'Print Collateral' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print2.png', title: 'Print Collateral' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print3.png', title: 'Print Collateral' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print4.png', title: 'Print Collateral' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print5.png', title: 'Print Collateral' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print6.png', title: 'Print Collateral' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print7.png', title: 'Print Collateral' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print8.jpg', title: 'Print Collateral' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print9.jpg', title: 'Print Collateral' },
+        { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print10.pdf', title: 'Proxy Statement' },
+       
+        
+
+        // Graphic Design - Custom Print
+        { category: 'Graphic Design-Custom Print', src: 'assets/Custom/custom.png', title: 'Custom Print' },
+        { category: 'Graphic Design-Custom Print', src: 'assets/Custom/custom1.jpg', title: 'Custom Print' },
+        { category: 'Graphic Design-Custom Print', src: 'assets/Custom/custom2.jpg', title: 'Custom Print' },
+        { category: 'Graphic Design-Custom Print', src: 'assets/Custom/custom3.jpg', title: 'Custom Print' },
+        { category: 'Graphic Design-Custom Print', src: 'assets/Custom/custom4.jpg', title: 'Custom Print' },
+        { category: 'Graphic Design-Custom Print', src: 'assets/Custom/custom5.jpg', title: 'Custom Print' },
+       
 
 
         // Graphic Design - Large Scale Print
-        { category: 'Graphic Design-Large Scale Print', src: 'assets/Large Scale Print/Billboard Mockup 2.png', title: 'Heritage Hotel Billboard AD' },
-        { category: 'Graphic Design-Large Scale Print', src: 'assets/Large Scale Print/Banner mock up.png', title: 'Heritage Hotel Banner' },
-        { category: 'Graphic Design-Large Scale Print', src: 'assets/Large Scale Print/Billboard Mockup 3.png', title: 'Heritage Hotel Billboard AD' },
-        { category: 'Graphic Design-Large Scale Print', src: 'assets/Large Scale Print/Billboard Mockup.png', title: 'Heritage Hotel Billboard AD' },
+        { category: 'Graphic Design-Large Scale Print', src: 'assets/Large Scale/mockup1.png', title: 'Heritage Hotel Banner' },
+        { category: 'Graphic Design-Large Scale Print', src: 'assets/Large Scale/mockup2.png', title: 'Heritage Hotel Billboard' },
+        { category: 'Graphic Design-Large Scale Print', src: 'assets/Large Scale/mockup3.png', title: 'Heritage Hotel Billboard' },
+        { category: 'Graphic Design-Large Scale Print', src: 'assets/Large Scale/mockup4.png', title: 'Heritage Hotel Billboard' },
 
         // Logo Design
-        { category: 'Logo Design', src: 'assets/Logos/FIG Logo 1.png', title: 'FIG Logo' },
-        { category: 'Logo Design', src: 'assets/Logos/ME Logo.png', title: 'Metro Essentials Logo' },
-        { category: 'Logo Design', src: 'assets/Logos/Artboard 4.png', title: 'Welcome to Arizona Logo' },
-        { category: 'Logo Design', src: 'assets/Logos/Paella.png', title: 'Paella Logo' },
-        { category: 'Logo Design', src: 'assets/Logos/Artboard 2TP.png', title: 'Task Pilot Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo1.png', title: 'Firmland Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo2.png', title: 'FIG Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo3.png', title: 'Welcome to Arizona Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo4.png', title: 'Task Pilot Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo5.png', title: 'Metro Essentials Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo6.png', title: 'Rock of Ages Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo7.png', title: 'Manhattan Spa Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo8.png', title: 'Manhattan Spa Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo9.png', title: 'MOB Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo10.png', title: 'Paella Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo11.png', title: 'Tdesign Logo' },
         
         // Mobile UI/UX
-        { category: 'Mobile UI/UX', src: 'assets/Mobile Application/Task Pilot Mobile App.pdf', title: 'Task Pilot Mobile App' },
+        { category: 'Mobile UI/UX', src: 'assets/Mobile/tp-mobile-app.pdf', title: 'Task Pilot Mobile App' },
         
         // Web UI/UX
-        { category: 'Web UI/UX', src: 'assets/Web/Firmland landing page.pdf', title: 'Firmland Landing Page' },
-        { category: 'Web UI/UX', src: 'assets/Web/Connext landing page.pdf', title: 'Connext Landing Page' },
-        { category: 'Web UI/UX', src: 'assets/Web/SageAI landing page.pdf', title: 'SageAI Landing Page' },
+        { category: 'Web UI/UX', src: 'assets/Web/firmland-lp.pdf', title: 'Firmland Landing Page' },
+        { category: 'Web UI/UX', src: 'assets/Web/connext-lp.pdf', title: 'Connext Landing Page' },
+        { category: 'Web UI/UX', src: 'assets/Web/sage-lp.pdf', title: 'SageAI Landing Page' },
 
 
         
