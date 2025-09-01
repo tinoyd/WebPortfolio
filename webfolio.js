@@ -80,6 +80,26 @@ document.addEventListener("DOMContentLoaded", function() {
             profilePhoto.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
         });
     }
+
+    const portfolioItems = document.querySelectorAll('.portfolio-list-item');
+    portfolioItems.forEach(item => {
+        window.addEventListener('mousemove', e => {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            const rotateX = ((mouseY - centerY) / centerY) * -5;
+            const rotateY = ((mouseX - centerX) / centerX) * 5;
+            
+            item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        });
+    });
 });
 
 // Three.js Particle Background
