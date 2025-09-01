@@ -35,7 +35,7 @@ hiddenElements.forEach((el) => observer.observe(el));
 
 // Typing animation
 document.addEventListener("DOMContentLoaded", function() {
-    const roles = ["a Graphic Designer", "a UI/UX Enthusiast", "an Illustrator"];
+    const roles = ["a Graphic Designer", "a UI/UX Designer", "an Illustrator", "a Visual Artist", "a Vibe Coder"];
     let roleIndex = 0;
     let charIndex = 0;
     const typingTextElement = document.getElementById('typing-text');
