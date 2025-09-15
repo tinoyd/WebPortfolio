@@ -682,6 +682,10 @@ footer {
         text-align: center;
     }
 
+    .social-links {
+        justify-content: center;
+    }
+
     #hero-object-canvas {
         display: none; /* Hide 3D object on smaller screens */
     }
