@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalImage = document.getElementById('lightbox-image');
     const modalVideo = document.getElementById('lightbox-video');
     const closeModal = document.querySelector('.close-button');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    const thumbnailContainer = document.querySelector('.thumbnail-container');
+
+    let currentIndex = 0;
+    let currentItems = [];
 
     const portfolioItems = [
         // Videos
@@ -22,17 +28,28 @@ document.addEventListener('DOMContentLoaded', () => {
         { category: 'Brand Design', src: 'assets/Brand/tp-brand.pdf', title: 'Task Pilot Brand Design' },
 
         // Graphic Design - Social Media
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social11.jpg', title: 'Social Media Post' },
         { category: 'Graphic Design-Social Media', src: 'assets/Social/social1.png', title: 'Social Media Post' },
         { category: 'Graphic Design-Social Media', src: 'assets/Social/social2.png', title: 'Social Media Post' },
         { category: 'Graphic Design-Social Media', src: 'assets/Social/social3.png', title: 'Social Media Post' },
         { category: 'Graphic Design-Social Media', src: 'assets/Social/social4.png', title: 'Social Media Post' },
         { category: 'Graphic Design-Social Media', src: 'assets/Social/social5.png', title: 'Social Media Post' },
         { category: 'Graphic Design-Social Media', src: 'assets/Social/social6.png', title: 'Social Media Post' },
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social12.png', title: 'Social Media Post' },
+        { category: 'Graphic Design-Social Media', src: 'assets/Social/social13.png', title: 'Social Media Post' },
         { category: 'Graphic Design-Social Media', src: 'assets/Social/social7.png', title: 'Social Media Post' },
         { category: 'Graphic Design-Social Media', src: 'assets/Social/social8.png', title: 'Social Media Post' },
         { category: 'Graphic Design-Social Media', src: 'assets/Social/social9.png', title: 'Social Media Post' },
         { category: 'Graphic Design-Social Media', src: 'assets/Social/social10.png', title: 'Social Media Post' },
+
+        // Graphic Design - Email Design
+        { category: 'Graphic Design-Email Design', src: 'assets/Email/email1.png', title: 'Email Design' },
+        { category: 'Graphic Design-Email Design', src: 'assets/Email/email2.png', title: 'Email Design' },
+        { category: 'Graphic Design-Email Design', src: 'assets/Email/email3.jpg', title: 'Email Design' },
+        { category: 'Graphic Design-Email Design', src: 'assets/Email/email4.jpg', title: 'Email Design' },
+        { category: 'Graphic Design-Email Design', src: 'assets/Email/email5.jpg', title: 'Email Design' },
         
+
         // Graphic Design - Print Collaterals
         { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print1.png', title: 'Print Collateral' },
         { category: 'Graphic Design-Print Collaterals', src: 'assets/Print/print2.png', title: 'Print Collateral' },
@@ -75,6 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { category: 'Logo Design', src: 'assets/Logo/logo9.png', title: 'MOB Logo' },
         { category: 'Logo Design', src: 'assets/Logo/logo10.png', title: 'Paella Logo' },
         { category: 'Logo Design', src: 'assets/Logo/logo11.png', title: 'Tdesign Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo12.png', title: 'Sage AI Logo' },
+        { category: 'Logo Design', src: 'assets/Logo/logo13.png', title: 'Efficio Logo' },
         
         // Mobile UI/UX
         { category: 'Mobile UI/UX', src: 'assets/Mobile/tp-mobile-app.pdf', title: 'Task Pilot Mobile App' },
@@ -102,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayPortfolioItems(items) {
         portfolioGrid.innerHTML = '';
-        items.forEach(item => {
+        items.forEach((item, index) => {
             const itemElement = document.createElement('div');
             itemElement.classList.add('portfolio-item');
             if (item.category === 'Logo Design') {
@@ -110,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             itemElement.dataset.src = item.src;
             itemElement.dataset.title = item.title;
+            itemElement.dataset.index = index;
             
             const isPdf = item.src.toLowerCase().endsWith('.pdf');
             const isVideo = item.src.toLowerCase().endsWith('.mp4');
@@ -125,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             } else if (isVideo) {
                  itemElement.innerHTML = `<video src="${item.src}#t=0.5" muted preload="metadata" loop></video>`;
-                 itemElement.addEventListener('click', openLightbox);
+                 itemElement.addEventListener('click', () => openLightbox(index, items));
                  itemElement.addEventListener('mouseenter', () => {
                     itemElement.querySelector('video').play();
                  });
@@ -136,34 +156,91 @@ document.addEventListener('DOMContentLoaded', () => {
                  });
             } else {
                 itemElement.innerHTML = `<img src="${item.src}" alt="${item.title}">`;
-                itemElement.addEventListener('click', openLightbox);
+                itemElement.addEventListener('click', () => openLightbox(index, items));
             }
             portfolioGrid.appendChild(itemElement);
         });
     }
 
-    function openLightbox(e) {
-        const item = e.currentTarget;
-        const src = item.dataset.src;
+    function openLightbox(index, items) {
+        currentIndex = index;
+        currentItems = items;
+        showItem(currentIndex);
+        modal.classList.add('active');
+        generateThumbnails();
+    }
+
+    function showItem(index) {
+        const item = currentItems[index];
+        const src = item.src;
         const type = src.split('.').pop().toLowerCase();
 
         if (type === 'mp4') {
             modalImage.style.display = 'none';
             modalVideo.style.display = 'block';
             modalVideo.src = src;
+            modalVideo.play();
         } else {
+            modalVideo.pause();
             modalVideo.style.display = 'none';
             modalImage.style.display = 'block';
             modalImage.src = src;
         }
         
-        if (item.classList.contains('logo-design-item')) {
+        if (item.category === 'Logo Design') {
             modalImage.classList.add('logo-preview');
         } else {
             modalImage.classList.remove('logo-preview');
         }
+    }
 
-        modal.classList.add('active');
+    function generateThumbnails() {
+        thumbnailContainer.innerHTML = '';
+        currentItems.forEach((item, index) => {
+            const thumbnail = document.createElement('img');
+            thumbnail.classList.add('thumbnail');
+            
+            if (item.src.toLowerCase().endsWith('.mp4')) {
+                thumbnail.src = 'assets/video-placeholder.png';
+            } else {
+                thumbnail.src = item.src;
+            }
+            
+            thumbnail.alt = item.title;
+            thumbnail.dataset.index = index;
+            if (index === currentIndex) {
+                thumbnail.classList.add('active');
+            }
+            thumbnail.addEventListener('click', () => {
+                currentIndex = index;
+                showItem(currentIndex);
+                updateThumbnails();
+            });
+            thumbnailContainer.appendChild(thumbnail);
+        });
+    }
+
+    function updateThumbnails() {
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        thumbnails.forEach((thumb, i) => {
+            if (i === currentIndex) {
+                thumb.classList.add('active');
+            } else {
+                thumb.classList.remove('active');
+            }
+        });
+    }
+
+    function showNext() {
+        currentIndex = (currentIndex + 1) % currentItems.length;
+        showItem(currentIndex);
+        updateThumbnails();
+    }
+
+    function showPrev() {
+        currentIndex = (currentIndex - 1 + currentItems.length) % currentItems.length;
+        showItem(currentIndex);
+        updateThumbnails();
     }
 
     function closeTheModal() {
@@ -171,12 +248,38 @@ document.addEventListener('DOMContentLoaded', () => {
         modalVideo.pause();
         modalVideo.src = "";
         modalImage.classList.remove('logo-preview');
+        thumbnailContainer.innerHTML = '';
     }
 
     closeModal.addEventListener('click', closeTheModal);
+    nextButton.addEventListener('click', showNext);
+    prevButton.addEventListener('click', showPrev);
+
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             closeTheModal();
         }
     });
+
+    // Swipe functionality
+    let touchstartX = 0;
+    let touchendX = 0;
+
+    modal.addEventListener('touchstart', function(event) {
+        touchstartX = event.changedTouches[0].screenX;
+    }, false);
+
+    modal.addEventListener('touchend', function(event) {
+        touchendX = event.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+        if (touchendX < touchstartX) {
+            showNext();
+        }
+        if (touchendX > touchstartX) {
+            showPrev();
+        }
+    }
 });
