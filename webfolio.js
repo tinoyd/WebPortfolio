@@ -134,7 +134,7 @@ if (window.THREE) {
     geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
 
     const material = new THREE.PointsMaterial({
-        color: 0x555555,
+        color: 0x0000ff, // Changed to bright blue for debugging
         size: 1,
         sizeAttenuation: true
     });
