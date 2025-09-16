@@ -166,11 +166,10 @@ if (window.THREE) {
     window.addEventListener('scroll', () => {
         if (window.innerWidth <= 1024) {
             const scrollY = window.scrollY;
-            camera.position.z = 200 - scrollY * 0.05;
-            points.rotation.y = scrollY * 0.0005;
+            points.position.y = scrollY * 0.1; // Slower scroll for parallax
         } else {
             // Optional: reset on desktop if user resizes from mobile
-            camera.position.z = 200;
+            points.position.y = 0;
         }
     });
 
