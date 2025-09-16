@@ -115,7 +115,7 @@ if (window.THREE) {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     const geometry = new THREE.BufferGeometry();
-    const count = 150;
+    const count = 250; // Increased particle count for a denser, more "endless" feel
     const spacing = 6;
     const vertices = new Float32Array(count * count * 3);
 
@@ -169,8 +169,8 @@ if (window.THREE) {
     window.addEventListener('scroll', () => {
         if (window.innerWidth <= 1024) {
             const scrollY = window.scrollY;
-            targetY = scrollY * 0.2; // Parallax effect
-            targetZ = 200 - scrollY * 0.05; // Subtle zoom from bottom/center
+            targetY = scrollY * 0.3; // Adjusted parallax for seamless feel
+            targetZ = 200 - scrollY * 0.03; // More subtle centered zoom
         } else {
             targetY = 0;
             targetZ = 200;

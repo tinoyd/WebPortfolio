@@ -1,0 +1,5 @@
+[33maa36d7b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m feat: implement subtle zoom and smooth parallax on scroll
+[33m62db755[m debug: change particle color to blue for deployment test
+[33m66d9897[m feat: implement smooth parallax scrolling
+[33m66f3486[m chore: trigger new deployment
+[33m7dc7128[m feat: implement parallax scroll effect on mobile
