@@ -154,6 +154,26 @@ if (window.THREE) {
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     });
 
+    // For touch devices
+    window.addEventListener('touchmove', (event) => {
+        if (event.touches.length > 0) {
+            mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
+        }
+    });
+
+    // For scroll interaction on mobile/tablet
+    window.addEventListener('scroll', () => {
+        if (window.innerWidth <= 1024) {
+            const scrollY = window.scrollY;
+            camera.position.z = 200 - scrollY * 0.05;
+            points.rotation.y = scrollY * 0.0005;
+        } else {
+            // Optional: reset on desktop if user resizes from mobile
+            camera.position.z = 200;
+        }
+    });
+
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
