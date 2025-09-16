@@ -134,7 +134,7 @@ if (window.THREE) {
     geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
 
     const material = new THREE.PointsMaterial({
-        color: 0x0000ff, // Changed to bright blue for debugging
+        color: 0x555555, // Reverted to original grey color
         size: 1,
         sizeAttenuation: true
     });
@@ -143,6 +143,7 @@ if (window.THREE) {
     scene.add(points);
 
     let targetY = 0;
+    let targetZ = 200; // For camera zoom
 
     camera.position.z = 200;
 
@@ -167,9 +168,12 @@ if (window.THREE) {
     // For scroll interaction on mobile/tablet
     window.addEventListener('scroll', () => {
         if (window.innerWidth <= 1024) {
-            targetY = window.scrollY * 0.4;
+            const scrollY = window.scrollY;
+            targetY = scrollY * 0.2; // Parallax effect
+            targetZ = 200 - scrollY * 0.05; // Subtle zoom from bottom/center
         } else {
             targetY = 0;
+            targetZ = 200;
         }
     });
 
@@ -214,8 +218,9 @@ if (window.THREE) {
     const animate = () => {
         requestAnimationFrame(animate);
 
-        // Apply smooth parallax scrolling
+        // Apply smooth parallax scrolling and zoom
         points.position.y += (targetY - points.position.y) * 0.05;
+        camera.position.z += (targetZ - camera.position.z) * 0.05;
 
         const elapsedTime = clock.getElapsedTime();
         const positions = points.geometry.attributes.position.array;
