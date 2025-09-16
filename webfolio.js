@@ -142,6 +142,8 @@ if (window.THREE) {
     const points = new THREE.Points(geometry, material);
     scene.add(points);
 
+    let targetY = 0;
+
     camera.position.z = 200;
 
     const mouse = new THREE.Vector2();
@@ -165,11 +167,9 @@ if (window.THREE) {
     // For scroll interaction on mobile/tablet
     window.addEventListener('scroll', () => {
         if (window.innerWidth <= 1024) {
-            const scrollY = window.scrollY;
-            points.position.y = scrollY * 0.1; // Slower scroll for parallax
+            targetY = window.scrollY * 0.4;
         } else {
-            // Optional: reset on desktop if user resizes from mobile
-            points.position.y = 0;
+            targetY = 0;
         }
     });
 
@@ -213,6 +213,9 @@ if (window.THREE) {
 
     const animate = () => {
         requestAnimationFrame(animate);
+
+        // Apply smooth parallax scrolling
+        points.position.y += (targetY - points.position.y) * 0.05;
 
         const elapsedTime = clock.getElapsedTime();
         const positions = points.geometry.attributes.position.array;
