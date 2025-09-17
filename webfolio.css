@@ -375,6 +375,10 @@ nav ul li a {
 
 
 /* Portfolio Category Page */
+.btn-back-portfolio {
+    display: none;
+}
+
 #portfolio-category h2 {
     font-size: 3rem;
     margin-bottom: 3rem;
@@ -632,14 +636,12 @@ footer {
   font-weight: bold;
   font-size: 20px;
   transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
   user-select: none;
   background-color: rgba(0,0,0,0.3);
 }
 
 .prev {
     left: 0;
-    border-radius: 0 3px 3px 0;
 }
 
 .next {
@@ -736,6 +738,25 @@ footer {
     h1 { font-size: 3rem; }
     h2 { font-size: 2rem; }
     section { padding: 4rem 0; }
+
+    #portfolio-category {
+        position: relative;
+    }
+
+    .btn-back-portfolio {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 1rem;
+        font-size: 1.5rem;
+        color: #fff;
+        z-index: 10;
+    }
+
+    #portfolio-category h2 {
+        text-align: center;
+        margin-top: 3rem;
+    }
 
     nav {
         flex-direction: column;
