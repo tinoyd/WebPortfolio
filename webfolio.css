@@ -402,6 +402,14 @@ nav ul li a {
     background: #ffffff;
 }
 
+.email-design-item {
+    background: #2a2a2a;
+}
+
+.email-design-item img {
+    object-fit: contain;
+}
+
 .portfolio-item img,
 .portfolio-item video {
     width: 100%;
@@ -753,6 +761,17 @@ footer {
 
     .portfolio-grid {
         grid-template-columns: 1fr; /* Single column on mobile */
+    }
+
+    .thumbnail-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        bottom: 10px;
+    }
+
+    .thumbnail {
+        width: 60px;
+        height: 45px;
     }
 
     .item-number {

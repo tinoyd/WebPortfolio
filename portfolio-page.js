@@ -127,6 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (item.category === 'Logo Design') {
                 itemElement.classList.add('logo-design-item');
             }
+            if (item.category === 'Graphic Design-Email Design') {
+                itemElement.classList.add('email-design-item');
+            }
             itemElement.dataset.src = item.src;
             itemElement.dataset.title = item.title;
             itemElement.dataset.index = index;
