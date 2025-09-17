@@ -195,6 +195,12 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             modalImage.classList.remove('logo-preview');
         }
+
+        if (item.category === 'Graphic Design-Email Design') {
+            modalImage.classList.add('email-preview');
+        } else {
+            modalImage.classList.remove('email-preview');
+        }
     }
 
     function generateThumbnails() {
@@ -249,6 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
         modalVideo.pause();
         modalVideo.src = "";
         modalImage.classList.remove('logo-preview');
+        modalImage.classList.remove('email-preview');
         thumbnailContainer.innerHTML = '';
     }
 

@@ -479,6 +479,11 @@ nav ul li a {
     background: white;
 }
 
+#lightbox-image.email-preview {
+    object-fit: contain;
+    background: #2a2a2a;
+}
+
 .close-button {
     position: absolute;
     top: 15px;
