@@ -464,6 +464,7 @@ nav ul li a {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .modal-content {
@@ -648,6 +649,12 @@ footer {
 
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.8);
+}
+
+@media (max-width: 1024px) {
+    .prev {
+        left: 0;
+    }
 }
 
 @media (min-width: 769px) {
