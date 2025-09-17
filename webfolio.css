@@ -456,6 +456,14 @@ nav ul li a {
 
 .modal.active {
     display: flex;
+    flex-direction: column;
+}
+
+.lightbox-main {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
@@ -635,6 +643,48 @@ footer {
 
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.8);
+}
+
+@media (min-width: 769px) {
+    .lightbox-main {
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 0 1rem;
+    }
+
+    .prev, .next {
+        position: static;
+        transform: none;
+        margin-top: 0;
+        font-size: 3rem;
+        padding: 1rem;
+        background-color: transparent;
+        border-radius: 10px;
+        width: 120px;
+        box-sizing: border-box;
+        text-align: center;
+        flex-shrink: 0;
+    }
+
+    .prev:hover, .next:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+    .close-button {
+        font-size: 2rem;
+        top: 2rem;
+        right: 2rem;
+        padding: 0.5rem 1rem;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 5px;
+    }
+
+    .close-button:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
 }
 
 /* Thumbnail Styles */
