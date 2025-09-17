@@ -402,11 +402,11 @@ nav ul li a {
     background: #ffffff;
 }
 
-.email-design-item {
+.portfolio-item.email-design-item {
     background: #2a2a2a;
 }
 
-.email-design-item img {
+.portfolio-item.email-design-item img {
     object-fit: contain;
 }
 
@@ -764,9 +764,16 @@ footer {
     }
 
     .thumbnail-container {
-        flex-wrap: wrap;
-        justify-content: center;
-        bottom: 10px;
+        width: 100%;
+        left: 0;
+        transform: none;
+        bottom: 0;
+        border-radius: 0;
+        justify-content: flex-start;
+        padding: 10px;
+        box-sizing: border-box;
+        overflow-x: auto;
+        flex-wrap: nowrap;
     }
 
     .thumbnail {

@@ -211,9 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             thumbnail.alt = item.title;
             thumbnail.dataset.index = index;
-            if (index === currentIndex) {
-                thumbnail.classList.add('active');
-            }
             thumbnail.addEventListener('click', () => {
                 currentIndex = index;
                 showItem(currentIndex);
@@ -228,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         thumbnails.forEach((thumb, i) => {
             if (i === currentIndex) {
                 thumb.classList.add('active');
+                thumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             } else {
                 thumb.classList.remove('active');
             }
