@@ -119,8 +119,8 @@ if (window.THREE) {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     const geometry = new THREE.BufferGeometry();
-    const countX = 250;
-    const countY = 500; // Taller grid for endless scroll
+    const countX = 100; // Drastically reduced for performance
+    const countY = 200; // Drastically reduced for performance
     const spacing = 6;
     const vertices = new Float32Array(countX * countY * 3);
 
@@ -204,11 +204,31 @@ if (window.THREE) {
         heroObjectRenderer.setSize(1300, 1300); // A bit larger
         heroObjectRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        const geometry = new THREE.IcosahedronGeometry(36, 10); // A bit larger
+        const geometry = new THREE.IcosahedronGeometry(36, 10);
+
+        const positions = geometry.attributes.position.array;
+        const colors = new Float32Array(positions.length);
+        const color = new THREE.Color();
+        const patternThreshold = 2.5; // Thinner pattern
+
+        for (let i = 0; i < positions.length; i += 3) {
+            const x = positions[i];
+            const y = positions[i + 1];
+            
+            if (Math.abs(y) < patternThreshold || Math.abs(x) < patternThreshold) {
+                color.set(0xffffff); // White pattern
+            } else {
+                color.set(0xaaaaaa); // Brighter grey base for more opacity
+            }
+            
+            color.toArray(colors, i);
+        }
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
         const material = new THREE.PointsMaterial({
-            color: 0xffffff,
-            size: 0.25,
-            sizeAttenuation: true
+            size: 0.3, // Slightly larger points for more visibility
+            sizeAttenuation: true,
+            vertexColors: true
         });
         heroObject = new THREE.Points(geometry, material);
         heroObject.initialPosition = heroObject.geometry.attributes.position.clone();
@@ -217,7 +237,7 @@ if (window.THREE) {
         heroObject.geometry.setAttribute('velocity', new THREE.BufferAttribute(velocities, 3));
 
         heroObjectScene.add(heroObject);
-        heroObjectCamera.position.z = 120; // Adjust camera for new scale
+        heroObjectCamera.position.z = 120;
     }
 
     const animate = () => {
@@ -255,57 +275,61 @@ if (window.THREE) {
         // Animate and render hero object if it exists
         if (heroObject && heroObjectRenderer) {
             const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            if (!isTouchDevice) {
+
+            if (isTouchDevice || window.innerWidth <= 768) {
+                // Keep the simple rotation for mobile to preserve performance
+                heroObject.rotation.y += 0.001;
+                heroObject.rotation.x += 0.0005;
+            } else {
+                // Apply the original, preferred interaction logic for desktop
                 heroObject.rotation.y += (mouse.x * 0.5 - heroObject.rotation.y) * 0.05;
                 heroObject.rotation.x += (-mouse.y * 0.5 - heroObject.rotation.x) * 0.05;
-            } else {
-                heroObject.rotation.y += 0.001;
+                
+                raycaster.setFromCamera(mouse, heroObjectCamera);
+                const intersects = raycaster.intersectObject(heroObject);
+
+                const positions = heroObject.geometry.attributes.position.array;
+                const velocities = heroObject.geometry.attributes.velocity.array;
+                const initialPos = heroObject.initialPosition.array;
+
+                for (let i = 0; i < positions.length; i += 3) {
+                    const ix = i, iy = i + 1, iz = i + 2;
+
+                    const dxInitial = initialPos[ix] - positions[ix];
+                    const dyInitial = initialPos[iy] - positions[iy];
+                    const dzInitial = initialPos[iz] - positions[iz];
+
+                    velocities[ix] += dxInitial * 0.005;
+                    velocities[iy] += dyInitial * 0.005;
+                    velocities[iz] += dzInitial * 0.005;
+                    
+                    if (intersects.length > 0) {
+                        const intersectPoint = intersects[0].point;
+                        const dx = positions[ix] - intersectPoint.x;
+                        const dy = positions[iy] - intersectPoint.y;
+                        const dz = positions[iz] - intersectPoint.z;
+                        const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+                        
+                        const repelRadius = 30;
+                        if (dist < repelRadius) {
+                            const repelForce = (repelRadius - dist) * 0.02;
+                            velocities[ix] += (dx / dist) * repelForce;
+                            velocities[iy] += (dy / dist) * repelForce;
+                            velocities[iz] += (dz / dist) * repelForce;
+                        }
+                    }
+
+                    velocities[ix] *= 0.96;
+                    velocities[iy] *= 0.96;
+                    velocities[iz] *= 0.96;
+                    
+                    positions[ix] += velocities[ix];
+                    positions[iy] += velocities[iy];
+                    positions[iz] += velocities[iz];
+                }
+                heroObject.geometry.attributes.position.needsUpdate = true;
             }
             
-            raycaster.setFromCamera(mouse, heroObjectCamera);
-            const intersects = raycaster.intersectObject(heroObject);
-
-            const positions = heroObject.geometry.attributes.position.array;
-            const velocities = heroObject.geometry.attributes.velocity.array;
-            const initialPos = heroObject.initialPosition.array;
-
-            for (let i = 0; i < positions.length; i += 3) {
-                const ix = i, iy = i + 1, iz = i + 2;
-
-                const dxInitial = initialPos[ix] - positions[ix];
-                const dyInitial = initialPos[iy] - positions[iy];
-                const dzInitial = initialPos[iz] - positions[iz];
-
-                velocities[ix] += dxInitial * 0.005;
-                velocities[iy] += dyInitial * 0.005;
-                velocities[iz] += dzInitial * 0.005;
-                
-                if (intersects.length > 0) {
-                    const intersectPoint = intersects[0].point;
-                    const dx = positions[ix] - intersectPoint.x;
-                    const dy = positions[iy] - intersectPoint.y;
-                    const dz = positions[iz] - intersectPoint.z;
-                    const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
-                    
-                    const repelRadius = 30; // Adjust interaction for new scale
-                    if (dist < repelRadius) {
-                        const repelForce = (repelRadius - dist) * 0.02;
-                        velocities[ix] += (dx / dist) * repelForce;
-                        velocities[iy] += (dy / dist) * repelForce;
-                        velocities[iz] += (dz / dist) * repelForce;
-                    }
-                }
-
-                velocities[ix] *= 0.96;
-                velocities[iy] *= 0.96;
-                velocities[iz] *= 0.96;
-                
-                positions[ix] += velocities[ix];
-                positions[iy] += velocities[iy];
-                positions[iz] += velocities[iz];
-            }
-            heroObject.geometry.attributes.position.needsUpdate = true;
-
             heroObjectRenderer.render(heroObjectScene, heroObjectCamera);
         }
     };
