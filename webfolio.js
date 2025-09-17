@@ -238,7 +238,7 @@ if (window.THREE) {
             const y = positions[i + 1];
 
             const dx = x - intersection.x;
-            const dy = y - intersection.y;
+            const dy = y - (intersection.y - points.position.y); // Correct for parallax
             const dist = Math.sqrt(dx * dx + dy * dy);
             
             const maxDist = 80;
