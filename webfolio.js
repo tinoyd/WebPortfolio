@@ -115,16 +115,17 @@ if (window.THREE) {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     const geometry = new THREE.BufferGeometry();
-    const count = 250; // Increased particle count for a denser, more "endless" feel
+    const countX = 250;
+    const countY = 500; // Taller grid for endless scroll
     const spacing = 6;
-    const vertices = new Float32Array(count * count * 3);
+    const vertices = new Float32Array(countX * countY * 3);
 
-    for (let i = 0; i < count; i++) {
-        for (let j = 0; j < count; j++) {
-            const x = (i - count / 2) * spacing;
-            const y = (j - count / 2) * spacing;
+    for (let i = 0; i < countX; i++) {
+        for (let j = 0; j < countY; j++) {
+            const x = (i - countX / 2) * spacing;
+            const y = (j - countY / 2) * spacing;
             const z = 0;
-            const index = (i * count + j) * 3;
+            const index = (i * countY + j) * 3;
             vertices[index] = x;
             vertices[index + 1] = y;
             vertices[index + 2] = z;
@@ -163,7 +164,7 @@ if (window.THREE) {
             mouse.x = (event.touches[0].clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.touches[0].clientY / window.innerHeight) * 2 + 1;
         }
-    });
+    }, { passive: true });
 
     // For scroll interaction on mobile/tablet
     window.addEventListener('scroll', () => {
