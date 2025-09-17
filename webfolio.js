@@ -65,8 +65,10 @@ document.addEventListener("DOMContentLoaded", function() {
     
     setTimeout(type, 500);
 
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
     const profilePhoto = document.querySelector('.profile-photo');
-    if (profilePhoto) {
+    if (profilePhoto && !isTouchDevice) {
         window.addEventListener('mousemove', e => {
             const centerX = window.innerWidth / 2;
             const centerY = window.innerHeight / 2;
@@ -82,24 +84,26 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const portfolioItems = document.querySelectorAll('.portfolio-list-item');
-    portfolioItems.forEach(item => {
-        window.addEventListener('mousemove', e => {
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-            
-            const mouseX = e.clientX;
-            const mouseY = e.clientY;
-            
-            const rotateX = ((mouseY - centerY) / centerY) * -5;
-            const rotateY = ((mouseX - centerX) / centerX) * 5;
-            
-            item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
+    if (!isTouchDevice) {
+        portfolioItems.forEach(item => {
+            window.addEventListener('mousemove', e => {
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                
+                const rotateX = ((mouseY - centerY) / centerY) * -5;
+                const rotateY = ((mouseX - centerX) / centerX) * 5;
+                
+                item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
 
-        item.addEventListener('mouseleave', () => {
-            item.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            });
         });
-    });
+    }
 });
 
 // Three.js Particle Background
@@ -250,9 +254,13 @@ if (window.THREE) {
 
         // Animate and render hero object if it exists
         if (heroObject && heroObjectRenderer) {
-            // heroObject.rotation.y += 0.001;
-            heroObject.rotation.y += (mouse.x * 0.5 - heroObject.rotation.y) * 0.05;
-            heroObject.rotation.x += (-mouse.y * 0.5 - heroObject.rotation.x) * 0.05;
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            if (!isTouchDevice) {
+                heroObject.rotation.y += (mouse.x * 0.5 - heroObject.rotation.y) * 0.05;
+                heroObject.rotation.x += (-mouse.y * 0.5 - heroObject.rotation.x) * 0.05;
+            } else {
+                heroObject.rotation.y += 0.001;
+            }
             
             raycaster.setFromCamera(mouse, heroObjectCamera);
             const intersects = raycaster.intersectObject(heroObject);
