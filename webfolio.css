@@ -709,7 +709,13 @@ footer {
 
     .portfolio-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 1rem;
+        gap: 1.5rem; /* Slightly larger gap for tablets */
+    }
+
+    .portfolio-item img,
+    .portfolio-item video,
+    .pdf-preview {
+        height: 180px; /* Reduced height for tablet */
     }
     
     .form-row {
@@ -743,6 +749,10 @@ footer {
         flex-direction: column;
         text-align: center;
         gap: 1rem;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr; /* Single column on mobile */
     }
 
     .item-number {
