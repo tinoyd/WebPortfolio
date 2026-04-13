@@ -102,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { category: 'Web UI/UX', src: 'assets/Web/firmland-lp.pdf', title: 'Firmland Landing Page' },
         { category: 'Web UI/UX', src: 'assets/Web/connext-lp.pdf', title: 'Connext Landing Page' },
         { category: 'Web UI/UX', src: 'assets/Web/sage-lp.pdf', title: 'SageAI Landing Page' },
+        { category: 'Web UI/UX', src: 'assets/Web/stalluxe-hero-design.pdf', title: 'Stalluxe Hero Design' },
 
 
         
